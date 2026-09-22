@@ -1,0 +1,1915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dipti Priya | Technical Interview Master Guide (Round 2)</title>
+  <meta name="description" content="Comprehensive 2nd Round Technical Interview Preparation Guide for Dipti Priya, covering AI SaaS Platform, Smart URL Shortener, Node.js, React, Databases, DSA, and System Design.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg-primary: #0a0e17;
+      --bg-secondary: #111827;
+      --bg-card: rgba(17, 24, 39, 0.75);
+      --bg-card-hover: rgba(31, 41, 55, 0.85);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(99, 102, 241, 0.3);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-dim: #6b7280;
+      --accent-indigo: #6366f1;
+      --accent-purple: #8b5cf6;
+      --accent-cyan: #06b6d4;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --gradient-primary: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+      --gradient-cyan: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+      --gradient-emerald: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      --font-display: 'Outfit', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'Fira Code', monospace;
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-card: rgba(255, 255, 255, 0.85);
+      --bg-card-hover: #ffffff;
+      --border-color: rgba(0, 0, 0, 0.08);
+      --border-accent: rgba(99, 102, 241, 0.3);
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-dim: #94a3b8;
+      --glass-shadow: 0 8px 32px 0 rgba(99, 102, 241, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      min-height: 100vh;
+    }
+
+    /* Ambient dynamic glow background */
+    .ambient-glow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .glow-sphere-1 {
+      position: absolute;
+      top: -10%;
+      left: 15%;
+      width: 50vw;
+      height: 50vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, rgba(0,0,0,0) 70%);
+      filter: blur(80px);
+    }
+    .glow-sphere-2 {
+      position: absolute;
+      bottom: -15%;
+      right: 10%;
+      width: 45vw;
+      height: 45vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, rgba(0,0,0,0) 70%);
+      filter: blur(80px);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(10, 14, 23, 0.8);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 100;
+      padding: 16px 0;
+      transition: all 0.3s ease;
+    }
+    .navbar-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+    .logo-badge {
+      background: var(--gradient-primary);
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+    }
+    .logo-text h1 {
+      font-size: 1.15rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .logo-text span {
+      font-size: 0.75rem;
+      color: var(--accent-indigo);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .theme-toggle, .btn-action {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+    .btn-action:hover, .theme-toggle:hover {
+      border-color: var(--accent-indigo);
+      background: var(--bg-card-hover);
+      color: var(--accent-indigo);
+      transform: translateY(-1px);
+    }
+    .btn-primary {
+      background: var(--gradient-primary);
+      color: white;
+      border: none;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+    }
+    .btn-primary:hover {
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 50px 0 30px;
+    }
+    .hero-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid var(--border-accent);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-indigo);
+      margin-bottom: 16px;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+    .hero-title .gradient-text {
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 800px;
+      margin-bottom: 28px;
+    }
+
+    .hero-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .stat-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      padding: 18px 20px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      border-color: var(--accent-indigo);
+      transform: translateY(-3px);
+      box-shadow: var(--glass-shadow);
+    }
+    .stat-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+    .stat-icon.indigo { background: rgba(99, 102, 241, 0.15); color: var(--accent-indigo); }
+    .stat-icon.cyan { background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan); }
+    .stat-icon.emerald { background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); }
+    .stat-icon.amber { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); }
+    .stat-val { font-size: 1.35rem; font-weight: 700; font-family: var(--font-display); }
+    .stat-lbl { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
+
+    /* Sticky Search & Navigation Bar */
+    .controls-wrapper {
+      position: sticky;
+      top: 73px;
+      z-index: 90;
+      background: rgba(10, 14, 23, 0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 16px 0;
+      margin-bottom: 30px;
+    }
+    .search-box {
+      position: relative;
+      margin-bottom: 14px;
+    }
+    .search-input {
+      width: 100%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      padding: 14px 20px 14px 48px;
+      border-radius: 12px;
+      color: var(--text-main);
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.2s ease;
+      font-family: var(--font-body);
+    }
+    .search-input:focus {
+      border-color: var(--accent-indigo);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+    }
+    .search-icon {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-dim);
+      font-size: 1.1rem;
+    }
+    .search-clear {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      cursor: pointer;
+      display: none;
+    }
+
+    /* Category Filter Pills */
+    .categories-bar {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+    .categories-bar::-webkit-scrollbar { display: none; }
+    .cat-btn {
+      white-space: nowrap;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 9999px;
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+    .cat-btn:hover {
+      color: var(--text-main);
+      border-color: var(--text-dim);
+    }
+    .cat-btn.active {
+      background: var(--accent-indigo);
+      color: white;
+      border-color: var(--accent-indigo);
+      box-shadow: 0 2px 10px rgba(99, 102, 241, 0.4);
+    }
+
+    /* Main Content Layout */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      margin-bottom: 60px;
+    }
+
+    /* Section Header */
+    .section-title-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 36px 0 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-badge {
+      background: rgba(99, 102, 241, 0.15);
+      color: var(--accent-indigo);
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-weight: 600;
+    }
+
+    /* Pitch Card Special Box */
+    .pitch-container {
+      background: linear-gradient(145deg, rgba(23, 27, 44, 0.9), rgba(15, 23, 42, 0.85));
+      border: 1px solid var(--border-accent);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 30px;
+      box-shadow: var(--glass-shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .pitch-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--gradient-primary);
+    }
+    .pitch-tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 12px;
+    }
+    .pitch-tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 6px 14px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .pitch-tab-btn.active {
+      background: rgba(99, 102, 241, 0.15);
+      color: var(--accent-indigo);
+    }
+    .pitch-content {
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+    .speech-quote {
+      background: rgba(0, 0, 0, 0.25);
+      border-left: 3px solid var(--accent-cyan);
+      padding: 16px 20px;
+      border-radius: 0 8px 8px 0;
+      font-style: italic;
+      color: var(--text-main);
+      margin-top: 14px;
+    }
+
+    /* Question Cards Accordions */
+    .qa-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+    .qa-card:hover {
+      border-color: rgba(99, 102, 241, 0.35);
+      box-shadow: var(--glass-shadow);
+    }
+    .qa-card.open {
+      border-color: var(--accent-indigo);
+    }
+    .qa-header {
+      padding: 20px 24px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      cursor: pointer;
+      gap: 16px;
+      user-select: none;
+    }
+    .qa-header-left {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .qa-tags {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .tag-saas { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }
+    .tag-url { background: rgba(6, 182, 212, 0.15); color: #38bdf8; border: 1px solid rgba(6, 182, 212, 0.3); }
+    .tag-node { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .tag-react { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+    .tag-db { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .tag-dsa { background: rgba(244, 63, 94, 0.15); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.3); }
+    .tag-high { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+
+    .qa-question {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.4;
+      color: var(--text-main);
+    }
+    .qa-expand-icon {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      transition: transform 0.3s ease;
+      margin-top: 4px;
+    }
+    .qa-card.open .qa-expand-icon {
+      transform: rotate(180deg);
+      color: var(--accent-indigo);
+    }
+
+    .qa-body {
+      display: none;
+      padding: 0 24px 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      animation: fadeIn 0.25s ease forwards;
+    }
+    .qa-card.open .qa-body {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* TLDR Highlight Box */
+    .tldr-box {
+      background: rgba(99, 102, 241, 0.08);
+      border-left: 3px solid var(--accent-indigo);
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+      font-size: 0.95rem;
+      color: var(--text-main);
+    }
+    .tldr-title {
+      font-weight: 700;
+      color: var(--accent-indigo);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Explanation points */
+    .qa-answer {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .qa-answer p { margin-bottom: 12px; }
+    .qa-answer ul, .qa-answer ol {
+      margin-left: 20px;
+      margin-bottom: 14px;
+    }
+    .qa-answer li { margin-bottom: 6px; }
+    .qa-answer strong { color: var(--text-main); font-weight: 600; }
+
+    /* Code Block */
+    .code-container {
+      background: #090d16;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      margin: 14px 0;
+      overflow: hidden;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+    }
+    .code-header {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 8px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-dim);
+      font-size: 0.75rem;
+    }
+    .code-content {
+      padding: 14px 16px;
+      overflow-x: auto;
+      color: #e2e8f0;
+      line-height: 1.5;
+    }
+    .code-keyword { color: #f43f5e; font-weight: 600; }
+    .code-func { color: #60a5fa; }
+    .code-str { color: #34d399; }
+    .code-num { color: #fbbf24; }
+    .code-comment { color: #64748b; font-style: italic; }
+
+    /* Answer Action Bar */
+    .qa-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.06);
+    }
+    .btn-copy-ans {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-copy-ans:hover {
+      color: var(--accent-indigo);
+      border-color: var(--accent-indigo);
+      background: rgba(99, 102, 241, 0.1);
+    }
+
+    /* Modal for Quick Flashcards */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      max-width: 680px;
+      width: 100%;
+      padding: 32px;
+      box-shadow: var(--glass-shadow);
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 40px 0;
+      margin-top: 60px;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 0.9rem;
+    }
+    footer a { color: var(--accent-indigo); text-decoration: none; font-weight: 500; }
+    footer a:hover { text-decoration: underline; }
+
+    /* Print styles */
+    @media print {
+      body { background: white; color: black; }
+      .navbar, .controls-wrapper, .ambient-glow, .btn-action, .theme-toggle, footer, .qa-footer { display: none !important; }
+      .qa-body { display: block !important; }
+      .qa-card { border: 1px solid #ccc; break-inside: avoid; margin-bottom: 20px; box-shadow: none; }
+      .pitch-container { border: 1px solid #aaa; background: none; }
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 768px) {
+      .hero-title { font-size: 2rem; }
+      .hero-stats-grid { grid-template-columns: 1fr 1fr; }
+      .navbar-inner { flex-direction: column; gap: 12px; align-items: flex-start; }
+      .nav-actions { width: 100%; justify-content: space-between; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Ambient Glow -->
+  <div class="ambient-glow">
+    <div class="glow-sphere-1"></div>
+    <div class="glow-sphere-2"></div>
+  </div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <a href="#" class="nav-logo">
+        <div class="logo-badge">DP</div>
+        <div class="logo-text">
+          <h1>Dipti Priya</h1>
+          <span>Technical Interview Master Guide &bull; Round 2</span>
+        </div>
+      </a>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeBtn" title="Toggle Dark/Light Mode">
+          <i class="fa-solid fa-moon"></i>
+          <span>Theme</span>
+        </button>
+        <button class="btn-action" onclick="window.print()">
+          <i class="fa-solid fa-print"></i>
+          <span>Print / Save PDF</span>
+        </button>
+        <button class="btn-action btn-primary" onclick="openFlashcardModal()">
+          <i class="fa-solid fa-bolt"></i>
+          <span>Quick Flashcards</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Header -->
+  <section class="hero container">
+    <div class="hero-badge-pill">
+      <i class="fa-solid fa-shield-halved"></i>
+      High-Impact 2nd Round Interview Preparation
+    </div>
+    <h2 class="hero-title">
+      Project Architecture, Implementation Proofs &amp; <span class="gradient-text">Core Technical Mastery</span>
+    </h2>
+    <p class="hero-subtitle">
+      Tailored for Dipti Priya's resume, verified against her live GitHub repositories (<strong>AI-Powered SaaS Platform</strong> &amp; <strong>Smart URL Shortener</strong>), complete with deep backend architectures, failure modes, algorithms, and battle-tested answers.
+    </p>
+
+    <!-- Stat Highlights -->
+    <div class="hero-stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon indigo"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+        <div>
+          <div class="stat-val">10+ AI Tools</div>
+          <div class="stat-lbl">Gemini 2.0 &bull; Clipdrop &bull; Cloudinary</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon cyan"><i class="fa-solid fa-bolt-lightning"></i></div>
+        <div>
+          <div class="stat-val">68.7B Perms</div>
+          <div class="stat-lbl">Nanoid(6) Collision Retry &bull; Redis 302</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon emerald"><i class="fa-solid fa-code"></i></div>
+        <div>
+          <div class="stat-val">300+ Solved</div>
+          <div class="stat-lbl">LeetCode &bull; DP &bull; Graphs &bull; Trees</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon amber"><i class="fa-solid fa-trophy"></i></div>
+        <div>
+          <div class="stat-val">Top 4 &bull; Semi</div>
+          <div class="stat-lbl">Srijan Biznez &bull; Cognizant Technoverse</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sticky Filter & Search Controls -->
+  <div class="controls-wrapper">
+    <div class="container">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search questions, code keywords (e.g. 'redis', 'collision', 'pdf-parse', 'event loop', '302', 'clerk')...">
+        <button id="searchClear" class="search-clear"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="categories-bar" id="categoryBar">
+        <button class="cat-btn active" data-filter="all"><i class="fa-solid fa-layer-group"></i> All Questions (<span id="countAll">24</span>)</button>
+        <button class="cat-btn" data-filter="pitch"><i class="fa-solid fa-microphone-lines"></i> Project Pitches</button>
+        <button class="cat-btn" data-filter="saas"><i class="fa-solid fa-brain"></i> AI SaaS Platform</button>
+        <button class="cat-btn" data-filter="url"><i class="fa-solid fa-link"></i> Smart URL Shortener</button>
+        <button class="cat-btn" data-filter="node"><i class="fa-brands fa-node-js"></i> Node.js &amp; Express</button>
+        <button class="cat-btn" data-filter="react"><i class="fa-brands fa-react"></i> React.js</button>
+        <button class="cat-btn" data-filter="db"><i class="fa-solid fa-database"></i> SQL &amp; MongoDB</button>
+        <button class="cat-btn" data-filter="dsa"><i class="fa-solid fa-diagram-project"></i> DSA (300+ Solved)</button>
+        <button class="cat-btn" data-filter="behavioral"><i class="fa-solid fa-user-tie"></i> Achievements &amp; Behavioral</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Container -->
+  <main class="container main-grid">
+
+    <!-- ================= SECTION 0: PROJECT ELEVATOR PITCHES ================= -->
+    <div class="qa-item" data-category="pitch">
+      <div class="section-title-wrap">
+        <div class="section-title">
+          <i class="fa-solid fa-microphone-lines" style="color: var(--accent-indigo);"></i>
+          Senior-Level Project Elevator Pitches
+        </div>
+        <span class="section-badge">Master Introductions</span>
+      </div>
+
+      <div class="pitch-container">
+        <div class="pitch-tabs">
+          <button class="pitch-tab-btn active" onclick="switchPitch('saas')">🤖 AI-Powered SaaS Platform Pitch</button>
+          <button class="pitch-tab-btn" onclick="switchPitch('url')">🔗 Smart URL Shortener Pitch</button>
+        </div>
+
+        <div id="pitchSaasContent" class="pitch-content">
+          <p><strong>When the interviewer says:</strong> <em>"Tell me about your AI-Powered SaaS Platform."</em></p>
+          <div class="speech-quote">
+            "I built an end-to-end AI creation studio called <strong>CreationSuite</strong> that unifies 10+ generative AI tools under a single authentication layer. It provides multi-turn PDF conversational chat, ATS resume scoring, text humanization, and AI image manipulation like background and object removal.<br><br>
+            On the frontend, I used <strong>React 19, Vite, and Tailwind CSS</strong> with GSAP and Framer Motion. The backend runs on <strong>Node.js and Express</strong>. For document processing, I utilized <strong>Multer with in-memory buffer streaming</strong> and <strong>pdf-parse</strong>, directly injecting extracted document text into <strong>Google Gemini 2.0 Flash</strong> for real-time document analysis without saving files to disk. For visuals, I integrated <strong>Clipdrop text-to-image</strong> and <strong>Cloudinary AI transformations</strong>.<br><br>
+            User authentication and tiered subscriptions (30 free credits threshold before paid unlock) are managed via <strong>Clerk</strong>, backed by <strong>Neon Serverless PostgreSQL</strong> for tracking creations and conversation logs."
+          </div>
+        </div>
+
+        <div id="pitchUrlContent" class="pitch-content" style="display: none;">
+          <p><strong>When the interviewer says:</strong> <em>"Walk me through your Smart URL Shortener."</em></p>
+          <div class="speech-quote">
+            "I engineered a high-throughput, low-latency URL shortening microservice with comprehensive clickstream analytics and QR code generation.<br><br>
+            The backend is built with <strong>Node.js and Express</strong>, utilizing <strong>PostgreSQL via Drizzle ORM</strong> (with alternate schema modeling in MongoDB). I used <strong>Nanoid</strong> to generate 6-character short codes offering over 68 billion unique combinations. To guarantee zero collisions, I designed a <strong>3-tier retry loop</strong> that catches PostgreSQL unique constraint violations (error code <code>23505</code>) and atomically regenerates a fresh alias.<br><br>
+            For sub-millisecond redirection latency, I implemented a <strong>Redis cache-aside layer</strong>. On incoming traffic, the server performs an <strong>HTTP 302 Temporary Redirect</strong> so that every click hits our system, triggering a non-blocking background analytics pipeline that captures client IP, User-Agent device types via <strong>UAParser</strong>, and geolocation via <strong>ipapi.co</strong> without delaying the user."
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= SECTION 1: AI SAAS PLATFORM QUESTIONS ================= -->
+    <div class="qa-item" data-category="saas">
+      <div class="section-title-wrap">
+        <div class="section-title">
+          <i class="fa-solid fa-brain" style="color: var(--accent-purple);"></i>
+          AI-Powered SaaS Platform &bull; Deep Architecture
+        </div>
+        <span class="section-badge">6 Questions</span>
+      </div>
+
+      <!-- Q1 -->
+      <div class="qa-card open">
+        <div class="qa-header">
+          <div class="qa-header-left">
+            <div class="qa-tags">
+              <span class="tag tag-saas">AI Architecture</span>
+              <span class="tag tag-high">Frequently Asked</span>
+            </div>
+            <div class="qa-question">Q1: How is the multi-turn conversational context maintained in "Chat with PDF"?</div>
+          </div>
+          <i class="fa-solid fa-chevron-down qa-expand-icon"></i>
+        </div>
+        <div class="qa-body">
+          <div class="tldr-box">
+            <div class="tldr-title"><i class="fa-solid fa-lightbulb"></i> Quick Take</div>
+            The PDF text is extracted in memory via <code>pdf-parse</code> (up to 30k chars) and injected as ground-truth context into a System Prompt. The client passes the full message history array, which is mapped into OpenAI-compatible roles (<code>user</code> / <code>assistant</code>) and passed to Gemini 2.0 Flash at <code>temperature: 0.3</code>.
+          </div>
+          <div class="qa-answer">
+            <p><strong>Step-by-step Implementation Flow:</strong></p>
+            <ol>
+              <li><strong>In-Memory Parsing:</strong> When a user asks a question against a PDF, Multer buffers the binary. <code>pdf-parse</code> extracts clean text, capped at 30,000 characters to stay within token budgets.</li>
+              <li><strong>Prompt Construction:</strong> We construct an array of messages:
+                <ul>
+                  <li><strong>System Message:</strong> <code>You are an expert AI document assistant. Below is the text extracted from the user's PDF document: ${pdfText}...</code></li>
+                  <li><strong>Preserved History:</strong> Spread the historical conversation array (<code>...parsedHistory.map(item => ({ role: item.role, content: item.content }))</code>).</li>
+                  <li><strong>Latest User Query:</strong> Appended as the final <code>{ role: 'user', content: message }</code>.</li>
+                </ul>
+              </li>
+              <li><strong>Low Temperature (0.3):</strong> Setting temperature low ensures deterministic, hallucination-free answers strictly rooted in the PDF content.</li>
+              <li><strong>Persistence:</strong> Each conversation turn is logged in Neon PostgreSQL's <code>pdf_chats</code> table (<code>user_id, file_name, user_message, ai_response</code>).</li>
+            </ol>
+            <div class="code-container">
+              <div class="code-header"><span>aiController.js &bull; chatWithPDF</span><span>JavaScript</span></div>
+              <pre class="code-content"><code><span class="code-keyword">const</span> pdfData = <span class="code-keyword">await</span> <span class="code-func">parsePdf</span>(pdfFile.buffer);
+<span class="code-keyword">const</span> messages = [
+  { <span class="code-str">role</span>: <span class="code-str">"system"</span>, <span class="code-str">content</span>: <span class="code-str">`Context from PDF:\n\n${pdfData.text.substring(0, 30000)}`</span> },
+  ...parsedHistory.<span class="code-func">map</span>(h => ({ <span class="code-str">role</span>: h.role, <span class="code-str">content</span>: h.content })),
+  { <span class="code-str">role</span>: <span class="code-str">"user"</span>, <span class="code-str">content</span>: message }
+];
+<span class="code-keyword">const</span> response = <span class="code-keyword">await</span> AI.chat.completions.<span class="code-func">create</span>({
+  <span class="code-str">model</span>: <span class="code-str">"gemini-2.0-flash"</span>,
+  messages,
+  <span class="code-str">temperature</span>: <span class="code-num">0.3</span>
+});</code></pre>
+            </div>
+          </div>
+          <div class="qa-footer">
+            <button class="btn-copy-ans" onclick="copyAnswer(this)"><i class="fa-regular fa-copy"></i> Copy Answer</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="qa-card">
+        <div class="qa-header">
+          <div class="qa-header-left">
+            <div class="qa-tags">
+              <span class="tag tag-saas">Performance</span>
+              <span class="tag tag-node">Node.js</span>
+            </div>
+            <div class="qa-question">Q2: Why did you use Multer memoryStorage instead of diskStorage for uploads?</div>
+          </div>
+          <i class="fa-solid fa-chevron-down qa-expand-icon"></i>
+        </div>
+        <div class="qa-body">
+          <div class="tldr-box">
+            <div class="tldr-title"><i class="fa-solid fa-lightbulb"></i> Quick Take</div>
+            Disk storage creates severe disk I/O bottlenecks and breaks on ephemeral serverless hosts (like Vercel / Render). In-memory buffers allow immediate text extraction or base64 streaming to Cloudinary, after which Node's V8 garbage collector immediately frees the memory.
+          </div>
+          <div class="qa-answer">
+            <p><strong>Three Crucial Engineering Reasons:</strong></p>
+            <ul>
+              <li><strong>Stateless / Cloud Compatibility:</strong> Cloud platforms like Vercel and Render use ephemeral filesystems. Files saved to local disk will disappear between restarts and fail across multi-instance load balancers.</li>
+              <li><strong>Zero Disk I/O Latency:</strong> Writing a 10MB PDF to SSD and reading it back introduces unnecessary read/write latency. Keeping it in a RAM Buffer (<code>req.file.buffer</code>) allows synchronous byte manipulation.</li>
+              <li><strong>No Cleanup Maintenance:</strong> Disk storage requires writing scheduled cron jobs to sweep and delete orphan temporary files to prevent server storage crashes. With buffers, memory is reclaimed as soon as the request ends.</li>
+            </ul>
+          </div>
+          <div class="qa-footer">
+            <button class="btn-copy-ans" onclick="copyAnswer(this)"><i class="fa-regular fa-copy"></i> Copy Answer</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="qa-card">
+        <div class="qa-header">
+          <div class="qa-header-left">
+            <div class="qa-tags">
+              <span class="tag tag-saas">Algorithms</span>
+              <span class="tag tag-high">ATS Scoring</span>
+            </div>
+            <div class="qa-question">Q3: How does the ATS Resume Scorer evaluate candidate alignment?</div>
+          </div>
+          <i class="fa-solid fa-chevron-down qa-expand-icon"></i>
+        </div>
+        <div class="qa-body">
+          <div class="tldr-box">
+            <div class="tldr-title"><i class="fa-solid fa-lightbulb"></i> Quick Take</div>
+            The resume PDF text and the target Job Description are injected into a structured semantic prompt. The LLM evaluates hard skill matching, missing keywords, impact quantification, and formatting readability, outputting a normalized percentage score and breakdown.
+          </div>
+          <div class="qa-answer">
+            <p><strong>Evaluation Architecture:</strong></p>
+            <ul>
+              <li><strong>Text Extraction:</strong> The resume text is extracted via <code>parsePdf(resume.buffer)</code> and stripped of corrupt binary characters.</li>
+              <li><strong>Categorical Analysis:</strong> The AI scores 4 weighted dimensions:
+                <ol>
+                  <li><em>Keyword Match (40%):</em> Density of exact and synonymous technical skills matching the job description.</li>
+                  <li><em>Experience Relevance (30%):</em> Alignment of candidate responsibilities with role seniority requirements.</li>
+                  <li><em>Impact &amp; Metrics (20%):</em> Use of action verbs and quantifiable accomplishments (e.g., "Reduced latency by 40%").</li>
+                  <li><em>ATS Formatting (10%):</em> Absence of complex multi-column tables, text boxes, or unsupported fonts.</li>
+                </ol>
+              </li>
+              <li><strong>Resilience Fallback:</strong> If the Gemini API experiences network limits, a built-in Regex Tokenizer extracts hard skills and computes a preliminary cosine similarity score so the user never sees a 500 error.</li>
+            </ul>
+          </div>
+          <div class="qa-footer">
+            <button class="btn-copy-ans" onclick="copyAnswer(this)"><i class="fa-regular fa-copy"></i> Copy Answer</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="qa-card">
+        <div class="qa-header">
+          <div class="qa-header-left">
+            <div class="qa-tags">
+              <span class="tag tag-saas">Security &amp; Billing</span>
+              <span class="tag tag-node">Clerk</span>
+            </div>
+            <div class="qa-question">Q4: How did you implement user authentication and the 30-free-credits limit?</div>
+          </div>
+          <i class="fa-solid fa-chevron-down qa-expand-icon"></i>
+        </div>
+        <div class="qa-body">
+          <div class="tldr-box">
+            <div class="tldr-title"><i class="fa-solid fa-lightbulb"></i> Quick Take</div>
+            We use Clerk JWT authentication middleware. Every incoming request decodes the session, retrieves the user's plan and usage, verifies <code>if (plan !== 'premium' && free_usage >= 30)</code> before executing compute, and atomically increments usage in PostgreSQL.
+          </div>
+          <div class="qa-answer">
+            <p><strong>Detailed Mechanism:</strong></p>
+            <ul>
+              <li><strong>Clerk Express Middleware:</strong> Validates the bearer token or session cookie. Injects <code>req.user.id</code>, <code>req.plan</code>, and <code>req.free_usage</code> into the request lifecycle.</li>
+              <li><strong>Pre-flight Quota Gate:</strong> Before invoking any paid API (Gemini or Clipdrop), the controller checks:
+                <br><code>if (plan !== 'premium' && free_usage >= 30) return res.json({ success: false, message: "Free limit reached. Upgrade to continue." });</code>
+              </li>
+              <li><strong>Atomic Usage Increment:</strong> After AI generation succeeds, an asynchronous <code>incrementUsage(userId, free_usage, plan)</code> helper updates the user count in the database to prevent race condition overuse.</li>
+            </ul>
+          </div>
+          <div class="qa-footer">
+            <button class="btn-copy-ans" onclick="copyAnswer(this)"><i class="fa-regular fa-copy"></i> Copy Answer</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="qa-card">
+        <div class="qa-header">
+          <div class="qa-header-left">
+            <div class="qa-tags">
+              <span class="tag tag-saas">Media &amp; CDN</span>
+              <span class="tag tag-node">Cloudinary</span>
+            </div>
+            <div class="qa-question">Q5: How does Background Removal and Image Generation work under the hood?</div>
+          </div>
+          <i class="fa-solid fa-chevron-down qa-expand-icon"></i>
+        </div>
+        <div class="qa-body">
+          <div class="tldr-box">
+            <div class="tldr-title"><i class="fa-solid fa-lightbulb"></i> Quick Take</div>
+            Images generated via Clipdrop or uploaded via Multer are converted into base64 Data URIs and streamed to Cloudinary CDN with transformation parameter <code>transformation: [{ effect: 'background_removal' }]</code>, returning an optimized CDN HTTPS URL.
+          </div>
+          <div class="qa-answer">
+            <p><strong>Media Pipeline Flow:</strong></p>
+            <ol>
+              <li><strong>AI Generation:</strong> For text-to-image, an HTTP POST request is dispatched to Clipdrop's API (<code>https://clipdrop-api.co/text-to-image/v1</code>). If Clipdrop is rate-limited, it automatically falls back to Pollinations AI.</li>
+              <li><strong>Base64 Transformation:</strong> The response buffer is converted into a standard Data URI (<code>data:image/png;base64,...</code>).</li>
+              <li><strong>Cloudinary Transformation:</strong> <code>cloudinary.uploader.upload()</code> applies AI-based background removal transformations directly on the CDN layer. This offloads compute-heavy computer vision tasks away from our Express server.</li>
+              <li><strong>CDN Delivery:</strong> The resulting immutable <code>secure_url</code> is stored in Neon PostgreSQL's <code>creations</code> table and rendered with lazy loading on the React frontend.</li>
+            </ol>
+          </div>
+          <div class="qa-footer">
+            <button class="btn-copy-ans" onclick="copyAnswer(this)"><i class="fa-regular fa-copy"></i> Copy Answer</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="qa-card">
+        <div class="qa-header">
+          <div class="qa-header-left">
+            <div class="qa-tags">
+              <span class="tag tag-saas">Resilience</span>
+              <span class="tag tag-high">System Design</span>
+            </div>
+            <div class="qa-question">Q6: What happens if Gemini or Clipdrop APIs encounter downtime or rate limits?</div>
+          </div>
+          <i class="fa-solid fa-chevron-down qa-expand-icon"></i>
+        </div>
+        <div class="qa-body">
+          <div class="tldr-box">
+            <div class="tldr-title"><i class="fa-solid fa-lightbulb"></i> Quick Take</div>
+            We implement Graceful Degradation: text generation tools fall back to algorithmic heuristic analyzers, while image tools fall back to alternate high-speed endpoints (Pollinations AI), logging warnings without returning 500 errors.
+          </div>
+          <div class="qa-answer">
+            <p><strong>Resilience Architecture:</strong></p>
+            <ul>
+              <li><strong>Dual-Layer Try/Catch:</strong> External AI calls are isolated inside nested try/catch blocks rather than relying on a top-level controller crash.</li>
+              <li><strong>Image Fallback:</strong> If Clipdrop fails due to quota exhaustion, the controller redirects the prompt to Pollinations AI's direct image endpoint.</li>
+              <li><strong>Text Fallback:</strong> If Gemini is temporarily unavailable, local parsing routines (such as <code>resumeReviewFallback</code> and <code>chatWithPDFFallback</code>) provide contextual analysis based on document structural metrics and keywords.</li>
+            </ul>
+          </div>
+          <div class="qa-footer">
+            <button class="btn-copy-ans" onclick="copyAnswer(this)"><i class="fa-regular fa-copy"></i> Copy Answer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= SECTION 2: SMART URL SHORTENER QUESTIONS ================= -->
+    <div class="qa-item" data-category="url">
+      <div class="section-title-wrap">
+        <div class="section-title">
+          <i class="fa-solid fa-link" style="color: var(--accent-cyan);"></i>
+          Smart URL Shortener &bull; System Design &amp; Low Latency
+        </div>
+        <span class="section-badge">5 Questions</span>
+      </div>
+
+      <!-- Q7 -->
+      <div class="qa-card open">
+        <div class="qa-header">
+          <div class="qa-header-left">
+            <div class="qa-tags">
+              <span class="tag tag-url">System Design</span>
+              <span class="tag tag-high">Collision Handling</span>
+            </div>
+            <div class="qa-question">Q7: How did you implement unique identifier generation and handle collisions?</div>
+          </div>
+          <i class="fa-solid fa-chevron-down qa-expand-icon"></i>
+        </div>
+        <div class="qa-body">
+          <div class="tldr-box">
+            <div class="tldr-title"><i class="fa-solid fa-lightbulb"></i> Quick Take</div>
+            We use <code>nanoid(6)</code> providing ~68.7 billion combinations. Collisions are handled via a 3-attempt retry loop that catches PostgreSQL's unique constraint violation error code <code>23505</code> and regenerates a fresh alias.
+          </div>
+          <div class="qa-answer">
+            <p><strong>Mathematical &amp; Code Proof:</strong></p>
+            <ul>
+              <li><strong>Combination Space:</strong> Nanoid uses a 64-character URL-safe alphabet (A-Z, a-z, 0-9, _, -). At length 6: <br>
+                $$64^6 = 68,719,476,736 \text{ (68.7 Billion unique combinations)}$$
+              </li>
+              <li><strong>Deterministic Collision Retry:</strong> If a collision occurs upon database insertion, PostgreSQL returns error code <code>23505</code>. Our controller catches this specific code and loops up to 3 times to generate a new key before failing gracefully.</li>
+            </ul>
+            <div class="code-container">
+              <div class="code-header"><span>url.controller.js &bull; Collision Loop</span><span>JavaScript</span></div>
+              <pre class="code-content"><code><span class="code-keyword">let</span> shortCode = code ?? <span class="code-func">nanoid</span>(<span class="code-num">6</span>);
+<span class="code-keyword">let</span> result;
+<span class="code-keyword">for</span> (<span class="code-keyword">let</span> i = <span class="code-num">0</span>; i &lt; <span class="code-num">3</span>; i++) {
+  <span class="code-keyword">try</span> {
+    result = <span class="code-keyword">await</span> <span class="code-func">insertShortCodeIntoTable</span>(shortCode, url, req.user.id);
+    <span class="code-keyword">break</span>; <span class="code-comment">// Insert successful</span>
+  } <span class="code-keyword">catch</span> (err) {
+    <span class="code-keyword">if</span> (err.code === <span class="code-str">"23505"</span>) {
+      shortCode = <span class="code-func">nanoid</span>(<span class="code-num">6</span>); <span class="code-comment">// Collision! Retry with fresh id</span>
+    } <span class="code-keyword">else</span> {
+      <span class="code-keyword">throw</span> err;
+    }
+  }
+}</code></pre>
+            </div>
+          </div>
+          <div class="qa-footer">
+            <button class="btn-copy-ans" onclick="copyAnswer(this)"><i class="fa-regular fa-copy"></i> Copy Answer</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q8 -->
+      <div class="qa-card">
+        <div class="qa-header">
+          <div class="qa-header-left">
+            <div class="qa-tags">
+              <span class="tag tag-url">Performance</span>
+              <span class="tag tag-high">Redis Caching</span>
+            </div>
+            <div class="qa-question">Q8: Why is redirection latency critical, and how did you optimize it with Redis?</div>
+          </div>
+          <i class="fa-solid fa-chevron-down qa-expand-icon"></i>
+        </div>
+        <div class="qa-body">
+          <div class="tldr-box">
+            <div class="tldr-title"><i class="fa-solid fa-lightbulb"></i> Quick Take</div>
+            URL shorteners are read-heavy (100:1). We use the Redis Cache-Aside pattern: on redirect, Redis is checked first; on hit, it redirects in under 2ms. On link update or deletion, the Redis key is evicted immediately to prevent stale redirects.
+          </div>
+          <div class="qa-answer">
+            <p><strong>Latency Optimization Strategy:</strong></p>
+            <ul>
+              <li><strong>Cache-Aside Pattern:</strong>
+                <ol>
+                  <li>User visits <code>/:shortCode</code>.</li>
+                  <li><code>getCachedURL(shortCode)</code> checks Redis RAM in &lt;2ms. If present, returns immediately.</li>
+                  <li>If cache miss, queries PostgreSQL via Drizzle ORM (using an index on <code>shortCode</code>), writes to Redis via <code>setCachedURL(shortCode, url)</code> with a TTL, and redirects.</li>
+                </ol>
+              </li>
+              <li><strong>Cache Invalidation:</strong> When a user updates or deletes their link, <code>deleteCachedURL(shortCode)</code> and <code>invalidateAnalyticsCache(id)</code> are called to prevent serving stale destinations.</li>
+            </ul>
+          </div>
+          <div class="qa-footer">
+            <button class="btn-copy-ans" onclick="copyAnswer(this)"><i class="fa-regular fa-copy"></i> Copy Answer</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q9 -->
+      <div class="qa-card">
+        <div class="qa-header">
+          <div class="qa-header-left">
+            <div class="qa-tags">
+              <span class="tag tag-url">Networking</span>
+              <span class="tag tag-high">HTTP Protocols</span>
+            </div>
+            <div class="qa-question">Q9: Why return HTTP 302 Found instead of HTTP 301 Moved Permanently?</div>
+          </div>
+          <i class="fa-solid fa-chevron-down qa-expand-icon"></i>
+        </div>
+        <div class="qa-body">
+          <div class="tldr-box">
+            <div class="tldr-title"><i class="fa-solid fa-lightbulb"></i> Quick Take</div>
+            HTTP 301 is permanently cached by client browsers, bypassing our backend on all subsequent clicks. HTTP 302 ensures every single click hits our server so we can accurately record click analytics, geolocation, and device telemetry.
+          </div>
+          <div class="qa-answer">
+            <p><strong>Critical Architectural Distinction:</strong></p>
+            <ul>
+              <li><strong>HTTP 301 (Permanent Redirect):</strong> The browser caches the destination URL in its local disk cache. The next time the user clicks the link, the browser routes directly to the target URL without making a request to our server. This completely breaks click counters, country tracking, and link deactivation.</li>
+              <li><strong>HTTP 302 (Found / Temporary Redirect):</strong> Instructs the browser to redirect now, but requires it to check back with our short link on every subsequent visit. This guarantees 100% accurate click analytics.</li>
+            </ul>
+          </div>
+          <div class="qa-footer">
+            <button class="btn-copy-ans" onclick="copyAnswer(this)"><i class="fa-regular fa-copy"></i> Copy Answer</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q10 -->
+      <div class="qa-card">
+        <div class="qa-header">
+          <div class="qa-header-left">
+            <div class="qa-tags">
+              <span class="tag tag-url">Telemetry</span>
+              <span class="tag tag-node">UAParser</span>
+            </div>
+            <div class="qa-question">Q10: How does analytics collection work without slowing down user redirection?</div>
+          </div>
+          <i class="fa-solid fa-chevron-down qa-expand-icon"></i>
+        </div>
+        <div class="qa-body">
+          <div class="tldr-box">
+            <div class="tldr-title"><i class="fa-solid fa-lightbulb"></i> Quick Take</div>
+            Analytics processing is executed non-blockingly. The controller extracts the IP and User-Agent headers, triggers <code>collectAnalytics</code>, and immediately issues <code>res.redirect()</code> without waiting for external geolocation or database write latency.
+          </div>
+          <div class="qa-answer">
+            <p><strong>Telemetry Pipeline:</strong></p>
+            <ul>
+              <li><strong>Client IP Resolution:</strong> Extracts client IP safely supporting reverse proxies: <code>req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress</code>.</li>
+              <li><strong>Device &amp; Browser Parsing:</strong> Evaluates the User-Agent via <code>UAParser</code> to determine mobile/tablet/desktop and browser engines.</li>
+              <li><strong>Asynchronous Geolocation:</strong> Fetches country, region, and city from <code>ipapi.co</code> in the background and writes to <code>urlAnalyticsTable</code> without delaying the response payload.</li>
+            </ul>
+          </div>
+          <div class="qa-footer">
+            <button class="btn-copy-ans" onclick="copyAnswer(this)"><i class="fa-regular fa-copy"></i> Copy Answer</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q11 -->
+      <div class="qa-card">
+        <div class="qa-header">
+          <div class="qa-header-left">
+            <div class="qa-tags">
+              <span class="tag tag-url">Database Design</span>
+              <span class="tag tag-db">SQL vs NoSQL</span>
+            </div>
+            <div class="qa-question">Q11: Resume says MongoDB, but GitHub has PostgreSQL (Drizzle). How do you explain both?</div>
+          </div>
+          <i class="fa-solid fa-chevron-down qa-expand-icon"></i>
+        </div>
+        <div class="qa-body">
+          <div class="tldr-box">
+            <div class="tldr-title"><i class="fa-solid fa-lightbulb"></i> Quick Take</div>
+            Explain that you built versions in both paradigms to evaluate architectural trade-offs: PostgreSQL for relational integrity and strict unique constraints, and MongoDB for high-volume, append-only clickstream event logging.
+          </div>
+          <div class="qa-answer">
+            <p><strong>How to present this confidently to the interviewer:</strong></p>
+            <div class="speech-quote">
+              "I actually explored both databases for this architecture:
+              <br><br>
+              In <strong>PostgreSQL with Drizzle ORM</strong>, I utilized relational foreign keys between users, URLs, and analytics tables, enforcing ACID compliance and leveraging database-level UNIQUE constraints to handle collision scenarios.
+              <br><br>
+              In <strong>MongoDB</strong>, I structured documents for high-write-throughput click events. Since URL analytics are append-only time-series data, MongoDB's flexible schema allows storing varying geolocation payloads without table migrations.
+              <br><br>
+              In an enterprise production setup, I would use a hybrid architecture: PostgreSQL for URL mapping and user accounts, paired with MongoDB or ClickHouse for raw analytics clickstreams."
+            </div>
+          </div>
+          <div class="qa-footer">
+            <button class="btn-copy-ans" onclick="copyAnswer(this)"><i class="fa-regular fa-copy"></i> Copy Answer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= SECTION 3: CORE NODE.JS & JS QUESTIONS ================= -->
+    <div class="qa-item" data-category="node">
+      <div class="section-title-wrap">
+        <div class="section-title">
+          <i class="fa-brands fa-node-js" style="color: var(--accent-emerald);"></i>
+          Node.js &amp; JavaScript Fundamentals
+        </div>
+        <span class="section-badge">3 Questions</span>
+      </div>
+
+      <!-- Q12 -->
+      <div class="qa-card">
+        <div class="qa-header">
+          <div class="qa-header-left">
+            <div class="qa-tags">
+              <span class="tag tag-node">Internals</span>
+              <span class="tag tag-high">Event Loop</span>
+            </div>
+            <div class="qa-question">Q12: Explain the Node.js Event Loop and the role of libuv.</div>
+          </div>
+          <i class="fa-solid fa-chevron-down qa-expand-icon"></i>
+        </div>
+        <div class="qa-body">
+          <div class="tldr-box">
+            <div class="tldr-title"><i class="fa-solid fa-lightbulb"></i> Quick Take</div>
+            Node runs JavaScript on a single thread via Google V8, while offloading async I/O (files, network) to the C++ library <code>libuv</code>, which maintains a multi-threaded thread pool. The event loop iterates through 6 distinct phases.
+          </div>
+          <div class="qa-answer">
+            <p><strong>The 6 Phases of the Event Loop:</strong></p>
+            <ol>
+              <li><strong>Timers:</strong> Executes callbacks scheduled by <code>setTimeout()</code> and <code>setInterval()</code>.</li>
+              <li><strong>Pending Callbacks:</strong> Executes deferred I/O callbacks from previous iterations.</li>
+              <li><strong>Idle, Prepare:</strong> Internal Node.js bookkeeping.</li>
+              <li><strong>Poll:</strong> Retrieves new I/O events (HTTP connections, reading files) and executes their callbacks.</li>
+              <li><strong>Check:</strong> Executes callbacks invoked by <code>setImmediate()</code>.</li>
+              <li><strong>Close Callbacks:</strong> Executes cleanup events like <code>socket.on('close')</code>.</li>
+            </ol>
+            <p><strong>Microtasks:</strong> <code>process.nextTick()</code> and resolved <code>Promises</code> execute <em>immediately between each phase</em> before moving forward.</p>
+          </div>
+          <div class="qa-footer">
+            <button class="btn-copy-ans" onclick="copyAnswer(this)"><i class="fa-regular fa-copy"></i> Copy Answer</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q13 -->
+      <div class="qa-card">
+        <div class="qa-header">
+          <div class="qa-header-left">
+            <div class="qa-tags">
+              <span class="tag tag-node">Execution Order</span>
+            </div>
+            <div class="qa-question">Q13: Difference between process.nextTick() and setImmediate()?</div>
+          </div>
+          <i class="fa-solid fa-chevron-down qa-expand-icon"></i>
+        </div>
+        <div class="qa-body">
+          <div class="tldr-box">
+            <div class="tldr-title"><i class="fa-solid fa-lightbulb"></i> Quick Take</div>
+            <code>process.nextTick()</code> runs immediately after the current operation finishes (before any event loop phase transition), whereas <code>setImmediate()</code> runs during the Check phase of the next loop iteration.
+          </div>
+          <div class="qa-answer">
+            <p>If you execute <code>process.nextTick()</code> recursively, it causes I/O starvation because the event loop can never transition into the Poll or Timers phases.</p>
+          </div>
+          <div class="qa-footer">
+            <button class="btn-copy-ans" onclick="copyAnswer(this)"><i class="fa-regular fa-copy"></i> Copy Answer</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q14 -->
+      <div class="qa-card">
+        <div class="qa-header">
+          <div class="qa-header-left">
+            <div class="qa-tags">
+              <span class="tag tag-node">Memory Management</span>
+            </div>
+            <div class="qa-question">Q14: What is the difference between a Buffer and a Stream in Node.js?</div>
+          </div>
+          <i class="fa-solid fa-chevron-down qa-expand-icon"></i>
+        </div>
+        <div class="qa-body">
+          <div class="tldr-box">
+            <div class="tldr-title"><i class="fa-solid fa-lightbulb"></i> Quick Take</div>
+            A Buffer stores a complete binary payload in raw memory outside the V8 heap. A Stream handles data sequentially in chunks as it arrives, preventing memory exhaustion on large files.
+          </div>
+          <div class="qa-answer">
+            <p>In our AI SaaS app, we use Buffers for small files (&lt;10MB resumes and images). For massive multi-gigabyte video or dataset uploads, Streams are required to keep RAM consumption bounded.</p>
+          </div>
+          <div class="qa-footer">
+            <button class="btn-copy-ans" onclick="copyAnswer(this)"><i class="fa-regular fa-copy"></i> Copy Answer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= SECTION 4: REACT.JS QUESTIONS ================= -->
+    <div class="qa-item" data-category="react">
+      <div class="section-title-wrap">
+        <div class="section-title">
+          <i class="fa-brands fa-react" style="color: #60a5fa;"></i>
+          React.js &amp; Frontend Engineering
+        </div>
+        <span class="section-badge">3 Questions</span>
+      </div>
+
+      <!-- Q15 -->
+      <div class="qa-card">
+        <div class="qa-header">
+          <div class="qa-header-left">
+            <div class="qa-tags">
+              <span class="tag tag-react">React Core</span>
+              <span class="tag tag-high">Fiber Engine</span>
+            </div>
+            <div class="qa-question">Q15: How does React's Virtual DOM and Reconciliation algorithm work?</div>
+          </div>
+          <i class="fa-solid fa-chevron-down qa-expand-icon"></i>
+        </div>
+        <div class="qa-body">
+          <div class="tldr-box">
+            <div class="tldr-title"><i class="fa-solid fa-lightbulb"></i> Quick Take</div>
+            React maintains an in-memory Virtual DOM tree. When state changes, React Fiber diffs the old and new trees in the Render Phase, computing the minimal mutations and applying them as a batch in the Commit Phase.
+          </div>
+          <div class="qa-answer">
+            <p><strong>Two Phases of Reconciliation:</strong></p>
+            <ul>
+              <li><strong>Render / Diffing Phase (Interruptible):</strong> React traverses the fiber nodes. It compares keys and element types. If two elements have different types, React unmounts the old subtree and creates a new one.</li>
+              <li><strong>Commit Phase (Synchronous):</strong> React applies the calculated DOM changes (insertions, updates, removals) in a single batch to avoid layout thrashing and unnecessary repaints.</li>
+            </ul>
+          </div>
+          <div class="qa-footer">
+            <button class="btn-copy-ans" onclick="copyAnswer(this)"><i class="fa-regular fa-copy"></i> Copy Answer</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q16 -->
+      <div class="qa-card">
+        <div class="qa-header">
+          <div class="qa-header-left">
+            <div class="qa-tags">
+              <span class="tag tag-react">Hooks</span>
+            </div>
+            <div class="qa-question">Q16: Compare useMemo, useCallback, and useRef with real-world examples.</div>
+          </div>
+          <i class="fa-solid fa-chevron-down qa-expand-icon"></i>
+        </div>
+        <div class="qa-body">
+          <div class="tldr-box">
+            <div class="tldr-title"><i class="fa-solid fa-lightbulb"></i> Quick Take</div>
+            <code>useMemo</code> caches a computed value; <code>useCallback</code> caches a function instance to prevent child re-renders; <code>useRef</code> stores a mutable value across renders without triggering a re-render.
+          </div>
+          <div class="qa-answer">
+            <ul>
+              <li><strong><code>useMemo</code>:</strong> <code>const filteredList = useMemo(() => filterItems(items, query), [items, query]);</code> — Prevents re-filtering an array of 5,000 items on unrelated state updates.</li>
+              <li><strong><code>useCallback</code>:</strong> <code>const onDelete = useCallback((id) => deleteURL(id), []);</code> — Passed to memoized child components (<code>React.memo</code>) so they don't re-render on parent changes.</li>
+              <li><strong><code>useRef</code>:</strong> <code>const chatScrollRef = useRef(null);</code> — Accesses real DOM nodes or holds timer IDs without causing component renders when modified.</li>
+            </ul>
+          </div>
+          <div class="qa-footer">
+            <button class="btn-copy-ans" onclick="copyAnswer(this)"><i class="fa-regular fa-copy"></i> Copy Answer</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q17 -->
+      <div class="qa-card">
+        <div class="qa-header">
+          <div class="qa-header-left">
+            <div class="qa-tags">
+              <span class="tag tag-react">State Immutability</span>
+            </div>
+            <div class="qa-question">Q17: Why is direct state mutation prohibited in React?</div>
+          </div>
+          <i class="fa-solid fa-chevron-down qa-expand-icon"></i>
+        </div>
+        <div class="qa-body">
+          <div class="tldr-box">
+            <div class="tldr-title"><i class="fa-solid fa-lightbulb"></i> Quick Take</div>
+            React uses shallow reference equality (<code>Object.is</code>). Mutating state directly modifies the object in place without changing its memory pointer, causing React to assume nothing changed and skip the re-render.
+          </div>
+          <div class="qa-answer">
+            <p>Always create a new object or array copy: <code>setItems(prev => [...prev, newItem])</code> or <code>setUser(prev => ({ ...prev, name: 'Dipti' }))</code>.</p>
+          </div>
+          <div class="qa-footer">
+            <button class="btn-copy-ans" onclick="copyAnswer(this)"><i class="fa-regular fa-copy"></i> Copy Answer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= SECTION 5: DATABASE & SQL/NOSQL ================= -->
+    <div class="qa-item" data-category="db">
+      <div class="section-title-wrap">
+        <div class="section-title">
+          <i class="fa-solid fa-database" style="color: var(--accent-amber);"></i>
+          Databases: SQL, NoSQL &amp; Indexing
+        </div>
+        <span class="section-badge">3 Questions</span>
+      </div>
+
+      <!-- Q18 -->
+      <div class="qa-card">
+        <div class="qa-header">
+          <div class="qa-header-left">
+            <div class="qa-tags">
+              <span class="tag tag-db">PostgreSQL &bull; MySQL</span>
+              <span class="tag tag-high">Indexing</span>
+            </div>
+            <div class="qa-question">Q18: How do B-Tree indexes work, and what is the trade-off of indexing?</div>
+          </div>
+          <i class="fa-solid fa-chevron-down qa-expand-icon"></i>
+        </div>
+        <div class="qa-body">
+          <div class="tldr-box">
+            <div class="tldr-title"><i class="fa-solid fa-lightbulb"></i> Quick Take</div>
+            B-Tree indexes maintain self-balancing, sorted tree structures that reduce lookups from \(O(N)\) full table scans to \(O(\log N)\). The trade-off is increased storage overhead and slower write speeds (INSERT, UPDATE, DELETE).
+          </div>
+          <div class="qa-answer">
+            <p><strong>Key Points:</strong></p>
+            <ul>
+              <li>In our URL shortener, we index <code>shortCode</code> because reads outnumber writes 100 to 1.</li>
+              <li>Every write must update both the table heap and rebalance the B-Tree node pointers. Over-indexing tables with high write volume degrades database throughput.</li>
+            </ul>
+          </div>
+          <div class="qa-footer">
+            <button class="btn-copy-ans" onclick="copyAnswer(this)"><i class="fa-regular fa-copy"></i> Copy Answer</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q19 -->
+      <div class="qa-card">
+        <div class="qa-header">
+          <div class="qa-header-left">
+            <div class="qa-tags">
+              <span class="tag tag-db">ACID Guarantees</span>
+            </div>
+            <div class="qa-question">Q19: Explain ACID properties in PostgreSQL.</div>
+          </div>
+          <i class="fa-solid fa-chevron-down qa-expand-icon"></i>
+        </div>
+        <div class="qa-body">
+          <div class="tldr-box">
+            <div class="tldr-title"><i class="fa-solid fa-lightbulb"></i> Quick Take</div>
+            Atomicity (all or nothing), Consistency (preserves constraints), Isolation (concurrent safety), Durability (persisted via WAL).
+          </div>
+          <div class="qa-answer">
+            <ul>
+              <li><strong>Atomicity:</strong> If user creation and credit initialization are in a transaction and one fails, the entire transaction rolls back.</li>
+              <li><strong>Consistency:</strong> Foreign keys and UNIQUE constraints cannot be violated.</li>
+              <li><strong>Isolation:</strong> Isolation levels (Read Committed, Repeatable Read, Serializable) prevent dirty reads and phantom reads.</li>
+              <li><strong>Durability:</strong> Once committed, transactions are written to Write-Ahead Logging (WAL) disk buffers surviving system power failures.</li>
+            </ul>
+          </div>
+          <div class="qa-footer">
+            <button class="btn-copy-ans" onclick="copyAnswer(this)"><i class="fa-regular fa-copy"></i> Copy Answer</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q20 -->
+      <div class="qa-card">
+        <div class="qa-header">
+          <div class="qa-header-left">
+            <div class="qa-tags">
+              <span class="tag tag-db">Architecture</span>
+            </div>
+            <div class="qa-question">Q20: When would you pick MongoDB over PostgreSQL?</div>
+          </div>
+          <i class="fa-solid fa-chevron-down qa-expand-icon"></i>
+        </div>
+        <div class="qa-body">
+          <div class="tldr-box">
+            <div class="tldr-title"><i class="fa-solid fa-lightbulb"></i> Quick Take</div>
+            Choose PostgreSQL for relational entities, transactions, and structured schemas. Choose MongoDB for polymorphic documents, rapid prototype evolution, and horizontal auto-sharding out of the box.
+          </div>
+          <div class="qa-answer">
+            <p>For example, click analytics events with dynamic browser telemetry and varying nested metadata are a great fit for MongoDB document collections, whereas user authentication and subscription plans belong in PostgreSQL.</p>
+          </div>
+          <div class="qa-footer">
+            <button class="btn-copy-ans" onclick="copyAnswer(this)"><i class="fa-regular fa-copy"></i> Copy Answer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= SECTION 6: DSA QUESTIONS ================= -->
+    <div class="qa-item" data-category="dsa">
+      <div class="section-title-wrap">
+        <div class="section-title">
+          <i class="fa-solid fa-diagram-project" style="color: var(--accent-rose);"></i>
+          Data Structures &amp; Algorithms (300+ Problems Tested)
+        </div>
+        <span class="section-badge">3 Questions</span>
+      </div>
+
+      <!-- Q21 -->
+      <div class="qa-card">
+        <div class="qa-header">
+          <div class="qa-header-left">
+            <div class="qa-tags">
+              <span class="tag tag-dsa">Graphs</span>
+              <span class="tag tag-high">Cycle Detection</span>
+            </div>
+            <div class="qa-question">Q21: How do you detect a cycle in a Directed Graph vs an Undirected Graph?</div>
+          </div>
+          <i class="fa-solid fa-chevron-down qa-expand-icon"></i>
+        </div>
+        <div class="qa-body">
+          <div class="tldr-box">
+            <div class="tldr-title"><i class="fa-solid fa-lightbulb"></i> Quick Take</div>
+            Undirected: DFS/BFS tracking parent pointers, or Disjoint Set Union (DSU). Directed: DFS with 3-color states (0=unvisited, 1=in-recursion-stack, 2=visited), or Kahn's Topological Sort with BFS.
+          </div>
+          <div class="qa-answer">
+            <ul>
+              <li><strong>Undirected Graph (DFS with Parent):</strong> If neighbor is already visited and is <em>not the parent</em> of the current node, a cycle exists. Time: \(O(V + E)\).</li>
+              <li><strong>Directed Graph (Kahn's Algorithm BFS):</strong>
+                <ol>
+                  <li>Calculate in-degree for all vertices.</li>
+                  <li>Enqueue all nodes with in-degree = 0.</li>
+                  <li>Pop queue, decrement neighbors' in-degree, push new 0-degree nodes.</li>
+                  <li>If total visited nodes &lt; \(V\), a cycle exists!</li>
+                </ol>
+              </li>
+            </ul>
+          </div>
+          <div class="qa-footer">
+            <button class="btn-copy-ans" onclick="copyAnswer(this)"><i class="fa-regular fa-copy"></i> Copy Answer</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q22 -->
+      <div class="qa-card">
+        <div class="qa-header">
+          <div class="qa-header-left">
+            <div class="qa-tags">
+              <span class="tag tag-dsa">Dynamic Programming</span>
+            </div>
+            <div class="qa-question">Q22: Formulate 0/1 Knapsack with 1D Space Optimization.</div>
+          </div>
+          <i class="fa-solid fa-chevron-down qa-expand-icon"></i>
+        </div>
+        <div class="qa-body">
+          <div class="tldr-box">
+            <div class="tldr-title"><i class="fa-solid fa-lightbulb"></i> Quick Take</div>
+            Traverse weights backwards from \(W\) down to \(w[i]\): <code>dp[w] = Math.max(dp[w], dp[w - wt[i]] + val[i])</code>. Iterating backwards guarantees each item is used at most once.
+          </div>
+          <div class="qa-answer">
+            <p><strong>Complexity:</strong> Time Complexity is \(O(N \times W)\). Space Complexity is reduced from \(O(N \times W)\) to \(O(W)\).</p>
+          </div>
+          <div class="qa-footer">
+            <button class="btn-copy-ans" onclick="copyAnswer(this)"><i class="fa-regular fa-copy"></i> Copy Answer</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q23 -->
+      <div class="qa-card">
+        <div class="qa-header">
+          <div class="qa-header-left">
+            <div class="qa-tags">
+              <span class="tag tag-dsa">Sliding Window</span>
+            </div>
+            <div class="qa-question">Q23: Explain the Sliding Window technique with an example.</div>
+          </div>
+          <i class="fa-solid fa-chevron-down qa-expand-icon"></i>
+        </div>
+        <div class="qa-body">
+          <div class="tldr-box">
+            <div class="tldr-title"><i class="fa-solid fa-lightbulb"></i> Quick Take</div>
+            Converts \(O(N^2)\) nested loops into \(O(N)\) linear time by expanding a <code>right</code> pointer and conditionally contracting a <code>left</code> pointer when window constraints are breached.
+          </div>
+          <div class="qa-answer">
+            <p><strong>Example: Longest Substring Without Repeating Characters:</strong></p>
+            <p>Maintain a hash map of character positions. When duplicate character <code>s[right]</code> is encountered at index \(\ge \text{left}\), jump <code>left = map.get(s[right]) + 1</code>. Window length is \(\text{right} - \text{left} + 1\).</p>
+          </div>
+          <div class="qa-footer">
+            <button class="btn-copy-ans" onclick="copyAnswer(this)"><i class="fa-regular fa-copy"></i> Copy Answer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= SECTION 7: ACHIEVEMENTS & BEHAVIORAL ================= -->
+    <div class="qa-item" data-category="behavioral">
+      <div class="section-title-wrap">
+        <div class="section-title">
+          <i class="fa-solid fa-user-tie" style="color: var(--accent-indigo);"></i>
+          Achievements &amp; Behavioral Questions
+        </div>
+        <span class="section-badge">2 Questions</span>
+      </div>
+
+      <!-- Q24 -->
+      <div class="qa-card">
+        <div class="qa-header">
+          <div class="qa-header-left">
+            <div class="qa-tags">
+              <span class="tag tag-high">Hackathons</span>
+              <span class="tag tag-saas">Cognizant &bull; Srijan</span>
+            </div>
+            <div class="qa-question">Q24: "Tell me about your Srijan 2026 / Cognizant Technoverse achievements."</div>
+          </div>
+          <i class="fa-solid fa-chevron-down qa-expand-icon"></i>
+        </div>
+        <div class="qa-body">
+          <div class="tldr-box">
+            <div class="tldr-title"><i class="fa-solid fa-lightbulb"></i> Quick Take</div>
+            Focus on technical ownership, rapid prototyping under time pressure, and collaborative problem-solving across both national-level competitions.
+          </div>
+          <div class="qa-answer">
+            <div class="speech-quote">
+              "In Srijan 2026 at Jadavpur University, we competed against 100+ teams and placed as <strong>Top 4 Finalists</strong>. We conceptualized an ML-driven platform for genetic diagnosis using molecular structure analysis. I took ownership of the technical feasibility, designing how genomic sequences could be pre-processed and fed into an inference pipeline with low-latency client delivery.
+              <br><br>
+              In <strong>Cognizant Technoverse</strong>, reaching the national semi-finals in a 3-member team taught me how to triage technical bottlenecks under tight hackathon deadlines, where I focused on robust API design, state management, and edge-case handling."
+            </div>
+          </div>
+          <div class="qa-footer">
+            <button class="btn-copy-ans" onclick="copyAnswer(this)"><i class="fa-regular fa-copy"></i> Copy Answer</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q25 -->
+      <div class="qa-card">
+        <div class="qa-header">
+          <div class="qa-header-left">
+            <div class="qa-tags">
+              <span class="tag tag-high">Growth Mindset</span>
+            </div>
+            <div class="qa-question">Q25: "Tell me about a difficult engineering bug you diagnosed and fixed."</div>
+          </div>
+          <i class="fa-solid fa-chevron-down qa-expand-icon"></i>
+        </div>
+        <div class="qa-body">
+          <div class="tldr-box">
+            <div class="tldr-title"><i class="fa-solid fa-lightbulb"></i> Quick Take</div>
+            Discuss the concurrency race condition in the URL shortener: application-level uniqueness checks failed under parallel load, solved by shifting enforcement to PostgreSQL UNIQUE constraints and catching error 23505.
+          </div>
+          <div class="qa-answer">
+            <div class="speech-quote">
+              "When initially building the URL shortener, I checked if a custom code existed using an application-level <code>SELECT</code> query before inserting. Under concurrent load testing, two requests checking for the same code simultaneously both saw it was available and both attempted to insert, causing an unhandled server error.
+              <br><br>
+              I learned that application-level checks are not atomic under concurrency. I resolved it by enforcing a database-level <code>UNIQUE</code> constraint on the <code>shortCode</code> column, wrapping insertions in a retry loop that specifically catches PostgreSQL error <code>23505</code>, and pairing it with a Redis cache-aside layer. That experience made me deeply appreciate database concurrency primitives."
+            </div>
+          </div>
+          <div class="qa-footer">
+            <button class="btn-copy-ans" onclick="copyAnswer(this)"><i class="fa-regular fa-copy"></i> Copy Answer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Flashcard Quick Modal -->
+  <div class="modal-overlay" id="flashcardModal">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeFlashcardModal()">&times;</button>
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px; color: var(--accent-indigo); font-weight: 700; font-size: 0.9rem;">
+        <i class="fa-solid fa-bolt"></i> RAPID FIRE FLASHCARD
+      </div>
+      <h3 id="fcQuestion" style="font-family: var(--font-display); font-size: 1.35rem; margin-bottom: 16px;">Loading question...</h3>
+      <div id="fcAnswer" style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); padding: 18px; border-radius: 10px; color: var(--text-muted); line-height: 1.6; margin-bottom: 24px; min-height: 110px;">
+        Click 'Reveal Answer' to test your recall!
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span id="fcProgress" style="color: var(--text-dim); font-size: 0.85rem;">Card 1 of 8</span>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn-action" id="fcRevealBtn" onclick="revealFlashcardAnswer()">Reveal Answer</button>
+          <button class="btn-action btn-primary" onclick="nextFlashcard()">Next Card &rarr;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p style="margin-bottom: 8px;"><strong>Dipti Priya</strong> &bull; Technical Interview Companion Guide (2nd Round)</p>
+      <p>B.Tech Information Technology (2023–2027) &bull; Verified against GitHub Repositories</p>
+    </div>
+  </footer>
+
+  <!-- Script for Interactivity, Filtering, Search, and Flashcards -->
+  <script>
+    // Theme toggle
+    const themeBtn = document.getElementById('themeBtn');
+    themeBtn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const target = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', target);
+      themeBtn.innerHTML = target === 'light' 
+        ? '<i class="fa-solid fa-sun"></i><span>Light</span>' 
+        : '<i class="fa-solid fa-moon"></i><span>Dark</span>';
+    });
+
+    // Pitch Switcher
+    function switchPitch(type) {
+      const saasBtn = document.querySelectorAll('.pitch-tab-btn')[0];
+      const urlBtn = document.querySelectorAll('.pitch-tab-btn')[1];
+      const saasContent = document.getElementById('pitchSaasContent');
+      const urlContent = document.getElementById('pitchUrlContent');
+
+      if (type === 'saas') {
+        saasBtn.classList.add('active');
+        urlBtn.classList.remove('active');
+        saasContent.style.display = 'block';
+        urlContent.style.display = 'none';
+      } else {
+        urlBtn.classList.add('active');
+        saasBtn.classList.remove('active');
+        urlContent.style.display = 'block';
+        saasContent.style.display = 'none';
+      }
+    }
+
+    // Accordions
+    document.querySelectorAll('.qa-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const card = header.closest('.qa-card');
+        card.classList.toggle('open');
+      });
+    });
+
+    // Category Filtering
+    const catButtons = document.querySelectorAll('.cat-btn');
+    const qaItems = document.querySelectorAll('.qa-item');
+
+    catButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        catButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.getAttribute('data-filter');
+
+        qaItems.forEach(item => {
+          if (filter === 'all' || item.getAttribute('data-category') === filter) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Search Filtering
+    const searchInput = document.getElementById('searchInput');
+    const searchClear = document.getElementById('searchClear');
+
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      searchClear.style.display = query ? 'block' : 'none';
+
+      document.querySelectorAll('.qa-card').forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (text.includes(query)) {
+          card.style.display = 'block';
+          if (query.length > 2) card.classList.add('open');
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Show/hide parent sections if all children hidden
+      qaItems.forEach(section => {
+        const visibleCards = section.querySelectorAll('.qa-card[style="display: block;"]');
+        if (query && visibleCards.length === 0 && section.getAttribute('data-category') !== 'pitch') {
+          section.style.display = 'none';
+        } else {
+          section.style.display = 'block';
+        }
+      });
+    });
+
+    searchClear.addEventListener('click', () => {
+      searchInput.value = '';
+      searchClear.style.display = 'none';
+      document.querySelectorAll('.qa-card').forEach(c => c.style.display = 'block');
+      qaItems.forEach(s => s.style.display = 'block');
+    });
+
+    // Copy Answer
+    function copyAnswer(btn) {
+      const body = btn.closest('.qa-body').querySelector('.qa-answer').innerText;
+      navigator.clipboard.writeText(body).then(() => {
+        btn.innerHTML = '<i class="fa-solid fa-check" style="color: var(--accent-emerald);"></i> Copied!';
+        setTimeout(() => {
+          btn.innerHTML = '<i class="fa-regular fa-copy"></i> Copy Answer';
+        }, 2000);
+      });
+    }
+
+    // Flashcards Data & Logic
+    const flashcards = [
+      {
+        q: "Why HTTP 302 instead of 301 for URL shortener?",
+        a: "HTTP 301 is permanently cached in browser disk caches, skipping our server on repeat clicks and destroying link analytics. HTTP 302 forces every click to hit our server first to capture click counts, geolocation, and device telemetry."
+      },
+      {
+        q: "How are short code collisions handled?",
+        a: "Nanoid(6) generates 68.7B permutations. PostgreSQL enforces a UNIQUE constraint on shortCode. On collision, DB throws error code '23505', which our controller catches in a 3-retry loop to generate a fresh ID."
+      },
+      {
+        q: "How does 'Chat with PDF' maintain multi-turn context?",
+        a: "pdf-parse extracts up to 30,000 characters from the in-memory buffer. This text is injected into the System Prompt. The client history array is appended before the new user query, called with Gemini 2.0 Flash at temperature 0.3."
+      },
+      {
+        q: "Why use Multer memoryStorage instead of diskStorage?",
+        a: "Disk storage fails on serverless/ephemeral platforms (Vercel/Render), causes disk I/O bottlenecks, and requires manual cron cleanup. Memory buffer streams directly to Cloudinary/Gemini and gets cleaned up immediately by V8 garbage collection."
+      },
+      {
+        q: "What is the difference between process.nextTick() and setImmediate()?",
+        a: "process.nextTick() executes immediately after the current operation finishes (microtask queue), before any event loop phase transition. setImmediate() executes during the Check phase of the event loop iteration."
+      },
+      {
+        q: "How do B-Tree indexes speed up database lookups?",
+        a: "A B-Tree keeps sorted key pointers in balanced tree nodes, reducing full table scans from O(N) to O(log N). The trade-off is higher storage and slower write speeds on INSERT/UPDATE/DELETE."
+      },
+      {
+        q: "How to detect a cycle in a Directed Graph?",
+        a: "Use DFS with 3-color states (0=unvisited, 1=in current recursion stack, 2=processed) — encountering state 1 indicates a back-edge cycle. Alternatively, use Kahn's Topological Sort with BFS: if popped count < V, a cycle exists."
+      },
+      {
+        q: "What was the race condition bug you resolved in your shortener?",
+        a: "Application-level 'SELECT then INSERT' failed under concurrent parallel requests. Resolved by enforcing a database-level UNIQUE constraint, catching SQL error 23505 in a retry loop, and fronting it with Redis cache-aside."
+      }
+    ];
+
+    let currentFc = 0;
+    function openFlashcardModal() {
+      currentFc = 0;
+      updateFlashcardView();
+      document.getElementById('flashcardModal').style.display = 'flex';
+    }
+    function closeFlashcardModal() {
+      document.getElementById('flashcardModal').style.display = 'none';
+    }
+    function updateFlashcardView() {
+      const card = flashcards[currentFc];
+      document.getElementById('fcQuestion').innerText = card.q;
+      document.getElementById('fcAnswer').innerText = "Click 'Reveal Answer' to check your answer!";
+      document.getElementById('fcProgress').innerText = `Card ${currentFc + 1} of ${flashcards.length}`;
+    }
+    function revealFlashcardAnswer() {
+      document.getElementById('fcAnswer').innerHTML = `<strong>Answer:</strong><br>${flashcards[currentFc].a}`;
+    }
+    function nextFlashcard() {
+      currentFc = (currentFc + 1) % flashcards.length;
+      updateFlashcardView();
+    }
+  </script>
+</body>
+</html>
