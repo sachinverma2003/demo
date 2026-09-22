@@ -174,6 +174,162 @@
       .qa-card { border: 1px solid #ccc; break-inside: avoid; margin-bottom: 20px; box-shadow: none; }
       .pitch-container { border: 1px solid #aaa; background: none; }
     }
+  
+    /* Floating AI Doubt Chatbot Widget */
+    .ai-doubt-widget {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 150;
+    }
+    .floating-doubt-btn {
+      background: var(--gradient-primary);
+      color: white;
+      border: none;
+      border-radius: 9999px;
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.45);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .floating-doubt-btn:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 12px 30px rgba(99, 102, 241, 0.6);
+    }
+    .doubt-chat-box {
+      display: none;
+      position: fixed;
+      bottom: 90px;
+      right: 24px;
+      width: min(420px, calc(100vw - 40px));
+      height: 560px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(20px);
+      flex-direction: column;
+      overflow: hidden;
+      animation: popUp 0.3s ease forwards;
+    }
+    @keyframes popUp {
+      from { opacity: 0; transform: translateY(20px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .doubt-chat-header {
+      padding: 16px 20px;
+      background: rgba(99, 102, 241, 0.1);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .bot-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--gradient-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1rem;
+    }
+    .doubt-close-btn {
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .doubt-messages {
+      flex: 1;
+      padding: 18px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 0.92rem;
+    }
+    .msg {
+      max-width: 86%;
+      padding: 12px 16px;
+      border-radius: 14px;
+      line-height: 1.55;
+    }
+    .msg-bot {
+      align-self: flex-start;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      border-top-left-radius: 4px;
+    }
+    .msg-user {
+      align-self: flex-end;
+      background: var(--accent-indigo);
+      color: white;
+      border-top-right-radius: 4px;
+    }
+    .quick-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .chip {
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid var(--border-accent);
+      color: var(--accent-indigo);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .chip:hover {
+      background: var(--accent-indigo);
+      color: white;
+    }
+    .doubt-input-area {
+      padding: 12px 16px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      gap: 8px;
+      background: var(--bg-card);
+    }
+    .doubt-input-area input {
+      flex: 1;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      padding: 10px 14px;
+      border-radius: 8px;
+      color: var(--text-main);
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .doubt-input-area input:focus {
+      border-color: var(--accent-indigo);
+    }
+    .doubt-input-area button {
+      background: var(--accent-indigo);
+      color: white;
+      border: none;
+      padding: 0 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+    .doubt-input-area button:hover {
+      background: var(--accent-purple);
+    }
+
   </style>
 </head>
 <body>
@@ -1362,6 +1518,94 @@ res.<span class="code-func">end</span>();</code></pre>
       currentFc = (currentFc + 1) % flashcards.length;
       updateFlashcardView();
     }
+  
+    // Floating Doubt Chat Logic
+    function toggleDoubtChat() {
+      const box = document.getElementById('doubtChatBox');
+      const isVisible = box.style.display === 'flex';
+      box.style.display = isVisible ? 'none' : 'flex';
+      if (!isVisible) {
+        document.getElementById('doubtInput').focus();
+      }
+    }
+
+    function askQuickChip(text) {
+      document.getElementById('doubtInput').value = text;
+      sendDoubt();
+    }
+
+    async function sendDoubt() {
+      const input = document.getElementById('doubtInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const container = document.getElementById('doubtMessages');
+
+      // Add user message
+      const userDiv = document.createElement('div');
+      userDiv.className = 'msg msg-user';
+      userDiv.innerText = text;
+      container.appendChild(userDiv);
+      input.value = '';
+
+      // Add thinking placeholder
+      const botDiv = document.createElement('div');
+      botDiv.className = 'msg msg-bot';
+      botDiv.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> <em>Thinking...</em>';
+      container.appendChild(botDiv);
+      container.scrollTop = container.scrollHeight;
+
+      try {
+        const prompt = `You are an expert technical & HR interview coach for Dipti Priya, preparing for her 2nd round interview. Question: ${text}. Give a clear, concise, direct answer in 2-4 sentences or structured bullet points.`;
+        const res = await fetch(`https://text.pollinations.ai/${encodeURIComponent(prompt)}`);
+        const answer = await res.text();
+        botDiv.innerHTML = answer.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      } catch (err) {
+        botDiv.innerHTML = "Sorry, couldn't reach the AI server right now. Feel free to ask directly in the Antigravity chat!";
+      }
+
+      container.scrollTop = container.scrollHeight;
+    }
+
   </script>
+
+  <!-- Floating AI Doubt Solver Widget -->
+  <div id="aiDoubtWidget" class="ai-doubt-widget">
+    <button id="openDoubtBtn" class="floating-doubt-btn" onclick="toggleDoubtChat()">
+      <i class="fa-solid fa-comments"></i>
+      <span>💬 Ask Doubts (AI Tutor)</span>
+    </button>
+    
+    <div id="doubtChatBox" class="doubt-chat-box">
+      <div class="doubt-chat-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div class="bot-avatar"><i class="fa-solid fa-robot"></i></div>
+          <div>
+            <div style="font-weight: 700; font-size: 0.95rem;">Interview AI Tutor</div>
+            <div style="font-size: 0.75rem; color: #10b981;"><i class="fa-solid fa-circle" style="font-size: 0.55rem;"></i> Online &bull; Live Doubt Solver</div>
+          </div>
+        </div>
+        <button class="doubt-close-btn" onclick="toggleDoubtChat()">&times;</button>
+      </div>
+      
+      <div id="doubtMessages" class="doubt-messages">
+        <div class="msg msg-bot">
+          👋 <strong>Hi Dipti!</strong> Have a doubt on any technical concept, project architecture, or HR question? Type it below and I'll explain it clearly!
+        </div>
+        <div class="quick-chips">
+          <button class="chip" onclick="askQuickChip('Explain the Redis cache-aside logic in simple terms')">⚡ Explain Redis</button>
+          <button class="chip" onclick="askQuickChip('How to answer why I want to join this company?')">🤝 Why This Company?</button>
+          <button class="chip" onclick="askQuickChip('Explain Nanoid collision retry loop in 3 sentences')">🔗 Nanoid Collision</button>
+          <button class="chip" onclick="askQuickChip('How does Chat with PDF maintain conversational context?')">🤖 Chat with PDF</button>
+        </div>
+      </div>
+
+      <div class="doubt-input-area">
+        <input type="text" id="doubtInput" placeholder="Ask any doubt or question..." onkeydown="if(event.key==='Enter') sendDoubt()">
+        <button id="sendDoubtBtn" onclick="sendDoubt()"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
